@@ -4,8 +4,11 @@ import React from "react";
 
 function Todo({ todo, remove }) {
   return (
-    <div className="todo" onClick={remove}>
-      <h3 id={todo.id}>{todo.task}</h3>
+    <div className="todo">
+      <h3>{todo.task}</h3>
+      <button onClick={remove} id={todo.id}>
+        Remove
+      </button>
     </div>
   );
 }

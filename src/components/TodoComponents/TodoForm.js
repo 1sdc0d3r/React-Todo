@@ -6,9 +6,16 @@ import { withFormik, Form, Field } from "formik";
 const todoForm = () => {
   return (
     <Form>
-      <Field name="taskInput" placeholder="Input Task" type="text" />
-      <button type="submit">Add Todo</button>
-      <button>Clear Completed</button>
+      <Field
+        name="taskInput"
+        placeholder="Input Task"
+        type="text"
+        className="form-input-task"
+      />
+      <button type="submit" className="form-submit-btn">
+        Add Todo
+      </button>
+      <button className="form-clear-btn">Clear</button>
     </Form>
   );
 };

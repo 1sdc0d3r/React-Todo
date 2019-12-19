@@ -1,7 +1,7 @@
 import React, { Component, useEffect } from "react";
 import TodoList from "./components/TodoComponents/TodoList";
 import CreateTodoForm from "./components/TodoComponents/TodoForm";
-
+//todo REMINDER: BUY BLUE-LIGHT FILTER GLASSES
 class App extends Component {
   // this component is going to take care of state, and any change handlers you need to work with your state
 
@@ -11,23 +11,19 @@ class App extends Component {
 
   onSubmitHandler = task => {
     this.setState({ todos: [...this.state.todos, task] });
-    // console.log(this.state);
   };
 
   removeTodoHandler = evt => {
     const id = evt.target.id;
-    console.log(id);
-    // let other = [];
-    //! this.setState({todos: [
-    //? WHAT THE FUCK IS GOING ON HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    //? e.id !== id returns TRUE!!!!!!!!!! (when it is false)
-    this.state.todos.filter(e =>
-      e.id !== id ? console.log("e.id", e.id, id) : console.log(false)
-    );
-    //! ]})
-    // console.log(other);
+    this.setState({
+      todos: [...this.state.todos.filter(e => e.id != id)]
+    });
+    console.log(this.state.todos);
   };
 
+  //todo ADD EVENT HANDLER FOR COMPLETED W/ BUTTON AND COLOR CHANGE
+  //todo TOGGLE todos.completed to true once marked as completed, move to new list
+  //TODO STYLE CSS
   render() {
     return (
       <div>

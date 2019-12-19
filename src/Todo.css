@@ -1,0 +1,31 @@
+.todo {
+  display: flex;
+  border: 1px solid red;
+  width: 150px;
+  text-align: center;
+  /* justify-content: space-around; */
+  /* align-items: space-around; */
+  margin-top: 1.5rem;
+}
+.todo button {
+  background: firebrick;
+  height: 1rem;
+  margin: auto;
+}
+.todo h3 {
+  margin: auto;
+}
+
+/*! TodoForm */
+.form-submit-btn {
+  background: lightgreen;
+  margin-left: 5px;
+}
+.form-clear-btn {
+  background: pink;
+  margin-left: 5px;
+}
+.form-input-task {
+  background: rgb(213, 219, 226);
+  color: green;
+}
