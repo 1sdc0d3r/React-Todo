@@ -1,14 +1,20 @@
 import React, { Component, useEffect } from "react";
 import TodoList from "./components/TodoComponents/TodoList";
 import CreateTodoForm from "./components/TodoComponents/TodoForm";
+import SearchBar from "./components/SearchBar";
+
+//!              REMINDER:
 //todo REMINDER: BUY BLUE-LIGHT FILTER GLASSES
 
 class App extends Component {
   // this component is going to take care of state, and any change handlers you need to work with your state
   state = {
-    todos: []
+    todos: [],
+    search: [],
+    searching: false
   };
 
+  // todo ADD A NEW STATE FOR COMPLETED TASKS
   // * If localStorage todosState === null then do nothing
   // * If localStorage todosState !== null then setState
 
@@ -16,9 +22,10 @@ class App extends Component {
     // alert("mounted");
     const localStorage = JSON.parse(window.localStorage.getItem("todosState"));
     localStorage === null
-      ? this.setState({ todos: [] })
-      : this.setState({ todos: localStorage });
+      ? this.stateReset()
+      : this.setState({ todos: localStorage, search: [], searching: false });
     //? window.addEventListener("unload", () => this.localStorageSave());
+    // console.log("mounted Component");
   }
 
   localStorageSave = () =>
@@ -51,34 +58,93 @@ class App extends Component {
     const id = e.target.id;
     const index = this.state.todos.findIndex(f => f.id == id);
     let stateCopy = this.state;
-    stateCopy.todos[index].completed === false
-      ? (stateCopy.todos[index].completed = true)
-      : (stateCopy.todos[index].completed = false);
+
+    stateCopy.todos[index].completed = true;
     this.setState(stateCopy);
+
     this.localStorageSave();
     console.log(window.localStorage.todosState);
   };
 
+  // completeTodoHandler = e => {
+  //   const id = e.target.id;
+  //   const index = this.state.todos.findIndex(f => f.id == id);
+
+  //   this.state.todos[index].completed = true;
+  //   this.setState(this.state);
+
+  //   this.localStorageSave();
+  //   console.log(window.localStorage.todosState);
+  // };
+
+  notCompleteTodoHandler = e => {
+    const id = e.target.id;
+    const index = this.state.todos.findIndex(f => f.id == id);
+    let stateCopy = this.state;
+    stateCopy.todos[index].completed = false;
+    this.setState(stateCopy);
+    this.localStorageSave();
+    console.log(window.localStorage.todosState);
+  };
+//todo Make it not case sensitive on search
+
+  onSearchHandler = evt => {
+    const input = evt.target.value;
+    console.log("input", input, "state", this.state.todos);
+    // let lostAndFound = [];
+    // this.state.todos.forEach(el =>
+    //   el.task.includes(input) ? lostAndFound.push(el) : null
+    // );
+    !input
+      ? this.stateReset()
+      : this.setState({
+          todos: [...this.state.todos],
+          search: this.state.todos.filter(el => el.task.includes(input)),
+          searching: true
+        });
+    // console.log(this.state);
+  };
+
+  onSearchBtnHandler = e => {
+    this.setState({
+      todos: [...this.state.todos],
+      search: []
+    });
+  };
+  stateReset = () => {
+    this.setState({
+      todos: [...this.state.todos],
+      search: [],
+      searching: false
+    });
+  };
+
   render() {
     return (
-      <div className="app">
-        <div className="form-list">
-          <h2>Todo List:</h2>
-          <div className="createTodoForm-comp">
+      <>
+        <div className="app-container">
+          <div className="form">
+            <h2>Todo List:</h2>
             <CreateTodoForm
               onSubmit={this.onSubmitHandler}
               onClear={this.onClearHandler}
             />
+            <SearchBar
+              btnSearch={this.onSearchBtnHandler}
+              search={this.onSearchHandler}
+            />
           </div>
         </div>
-        <div className="todoList-comp">
-          <TodoList
-            todoList={this.state.todos}
-            remove={this.removeTodoHandler}
-            complete={this.completeTodoHandler}
-          />
-        </div>
-      </div>
+        <TodoList
+          todoList={this.state.todos}
+          lostAndFoundList={this.state.search}
+          remove={this.removeTodoHandler}
+          complete={this.completeTodoHandler}
+          notComplete={this.notCompleteTodoHandler}
+          stateCheck={this.onSearchBtnHandler}
+          searching={this.state.searching}
+        />
+      </>
     );
   }
 }

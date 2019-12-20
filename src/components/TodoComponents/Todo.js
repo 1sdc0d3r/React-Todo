@@ -2,7 +2,7 @@ import React from "react";
 
 //todo <Todo /> displays 'todo' data to DOM
 
-function Todo({ todo, remove, complete }) {
+function Todo({ todo, remove, complete, notComplete }) {
   return (
     <div className="todo">
       {/* todo.completed === false = "todo-task" */}
@@ -11,7 +11,10 @@ function Todo({ todo, remove, complete }) {
       </h3>
       <div className="btn-div">
         <button className="btn-complete" id={todo.id} onClick={complete}>
-          Complete?
+          Complete
+        </button>
+        <button className="btn-not-complete" id={todo.id} onClick={notComplete}>
+          Not Complete
         </button>
         <button className="btn-remove" id={todo.id} onClick={remove}>
           Remove

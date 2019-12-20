@@ -6,20 +6,22 @@ import { withFormik, Form, Field } from "formik";
 const todoForm = ({ values, resetForm }) => {
   const { clear } = values;
   return (
-    <Form>
-      <Field
-        name="taskInput"
-        placeholder="Task to add"
-        type="text"
-        className="form-input-task"
-      />
-      <button type="submit" onClick={() => {}} className="form-submit-btn">
-        Add Todo
-      </button>
-      <button type="button" onClick={clear} className="form-clear-btn">
-        Clear
-      </button>
-    </Form>
+    <div className="form">
+      <Form>
+        <Field
+          name="taskInput"
+          placeholder="Task to add"
+          type="text"
+          className="form-input-task"
+        />
+        <button type="submit" onClick={() => {}} className="form-submit-btn">
+          Add Todo
+        </button>
+        <button type="button" onClick={clear} className="form-clear-btn">
+          Clear
+        </button>
+      </Form>
+    </div>
   );
 };
 
@@ -32,7 +34,7 @@ const FormikTodoForm = withFormik({
     };
   },
   handleSubmit({ taskInput, submit }) {
-    submit({ task: taskInput, id: Date.now(), completed: false });
+    submit({ task: taskInput || "", id: Date.now(), completed: false });
   }
 })(todoForm);
 
