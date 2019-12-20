@@ -1,19 +1,64 @@
+/*! App */
+.app {
+  /* border: 1px solid green; */
+}
+.createTodoForm-comp {
+  /* border: 1px solid red; */
+  margin-bottom: 1rem;
+}
+.todoList-comp {
+  /* border: 3px solid purple; */
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+}
+.form-list {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+/*! Todo  */
+
 .todo {
   display: flex;
-  border: 1px solid red;
-  width: 150px;
+  flex-direction: column;
+  border: 3px ridge royalblue;
+  width: 40%;
+  /* width: auto; */
   text-align: center;
-  /* justify-content: space-around; */
-  /* align-items: space-around; */
-  margin-top: 1.5rem;
+  margin-top: 1rem;
+  margin-left: 5%;
+  padding: 5px;
 }
-.todo button {
+.btn-div {
+  display: flex;
+  margin-top: 0.5rem;
+  /* border: 1px solid saddlebrown; */
+}
+.btn-remove {
   background: firebrick;
+  color: rgb(231, 231, 82);
+  height: 1rem;
+  margin: auto;
+}
+.btn-complete {
+  color: firebrick;
+  background: rgb(23, 179, 2);
   height: 1rem;
   margin: auto;
 }
 .todo h3 {
   margin: auto;
+}
+.todo-task {
+  margin: auto;
+}
+.completed {
+  margin: auto;
+  text-decoration: line-through;
+  color: red;
 }
 
 /*! TodoForm */
