@@ -10,14 +10,38 @@
   align-items: center;
   margin-bottom: 1rem;
 }
+.form h1 {
+  /* border: 1px solid red; */
+  font-style: italic;
+}
 .todoList-comp {
   /* border: 3px solid purple; */
   display: flex;
   flex-wrap: wrap;
   margin: auto;
 }
+.completed-todos-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  /* border: 1px solid red; */
+}
+.completed-todos-wrapper h2 {
+  /* border: 1px solid red; */
+  width: 60%;
+  margin: auto;
+  justify-content: center;
+  text-align: center;
+  margin-top: 1rem;
+  font-style: italic;
+}
 .form-list {
   /* border: 1px solid red; */
+}
+
+.no-tasks {
+  text-align: center;
+  margin-top: 0.5rem;
 }
 /*! Todo  */
 
@@ -72,7 +96,7 @@
   background: lightgreen;
   margin-left: 5px;
 }
-.form-clear-btn {
+.form-update-btn {
   background: pink;
   margin-left: 5px;
 }
@@ -89,6 +113,15 @@
   margin-left: 5px;
 }
 .search-btn {
-  color: rgb(230, 152, 57);
-  background: rgb(228, 128, 92);
+  color: white;
+  background: white;
+  position: absolute;
+  margin-left: 2rem;
+  /* border: 1px solid white; */
+}
+.search-btn-found {
+  color: hotpink;
+  background: orange;
+  position: absolute;
+  margin-left: 2rem;
 }

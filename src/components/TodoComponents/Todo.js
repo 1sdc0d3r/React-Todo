@@ -1,11 +1,8 @@
 import React from "react";
 
-//todo <Todo /> displays 'todo' data to DOM
-
 function Todo({ todo, remove, complete, notComplete }) {
   return (
     <div className="todo">
-      {/* todo.completed === false = "todo-task" */}
       <h3 className={todo.completed ? "completed" : "todo-task"}>
         {todo.task}
       </h3>

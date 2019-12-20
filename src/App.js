@@ -2,6 +2,7 @@ import React, { Component, useEffect } from "react";
 import TodoList from "./components/TodoComponents/TodoList";
 import CreateTodoForm from "./components/TodoComponents/TodoForm";
 import SearchBar from "./components/SearchBar";
+import CompletedTodoList from "./components/TodoComponents/CompletedTodos";
 
 //!              REMINDER:
 //todo REMINDER: BUY BLUE-LIGHT FILTER GLASSES
@@ -11,10 +12,11 @@ class App extends Component {
   state = {
     todos: [],
     search: [],
-    searching: false
+    searching: false,
+    completedTasks: []
   };
 
-  // todo ADD A NEW STATE FOR COMPLETED TASKS
+  // todo ADD A NEW STATE FOR COMPLETED TASKS DONE CHECK DEBUGGING
   // * If localStorage todosState === null then do nothing
   // * If localStorage todosState !== null then setState
 
@@ -23,35 +25,63 @@ class App extends Component {
     const localStorage = JSON.parse(window.localStorage.getItem("todosState"));
     localStorage === null
       ? this.stateReset()
-      : this.setState({ todos: localStorage, search: [], searching: false });
+      : this.setState({
+          todos: localStorage,
+          search: [],
+          searching: false,
+          completedTasks: []
+        });
     //? window.addEventListener("unload", () => this.localStorageSave());
     // console.log("mounted Component");
   }
 
-  localStorageSave = () =>
+  localStorageSave = () => {
     window.localStorage.setItem("todosState", JSON.stringify(this.state.todos));
-
-  onSubmitHandler = task => {
-    this.setState({ todos: [...this.state.todos, task] });
-    this.localStorageSave();
-    console.log(window.localStorage.todosState);
+    window.localStorage.setItem(
+      "completedTasks",
+      JSON.stringify(this.state.completedTasks)
+    );
+    console.log(window.localStorage);
   };
 
-  onClearHandler = e => {
+  onSubmitHandler = task => {
     this.setState({
-      todos: [...this.state.todos.filter(e => e.completed === false)]
+      todos: [...this.state.todos, task],
+      completedTasks: [...this.state.completedTasks]
     });
     this.localStorageSave();
-    console.log(window.localStorage.todosState);
+  };
+
+  onUpdateHandler = e => {
+    // console.log(...this.state.todos.filter(e => e.completed === true));
+    const stateCopy = {
+      todos: [],
+      completedTasks: []
+    };
+    stateCopy.todos.push(
+      ...this.state.todos.filter(e => e.completed === false)
+    );
+    stateCopy.todos.push(
+      ...this.state.completedTasks.filter(e => e.completed === false)
+    );
+    stateCopy.completedTasks.push(
+      ...this.state.todos.filter(e => e.completed === true)
+    );
+    stateCopy.completedTasks.push(
+      ...this.state.completedTasks.filter(e => e.completed === true)
+    );
+
+    this.setState(stateCopy);
+    this.localStorageSave();
   };
 
   removeTodoHandler = evt => {
     const id = evt.target.id;
     this.setState({
-      todos: [...this.state.todos.filter(e => e.id != id)]
+      todos: [...this.state.todos.filter(e => e.id != id)],
+      completedTasks: [...this.state.completedTasks.filter(e => e.id != id)]
     });
     this.localStorageSave();
-    console.log(window.localStorage.todosState);
   };
 
   completeTodoHandler = e => {
@@ -60,10 +90,10 @@ class App extends Component {
     let stateCopy = this.state;
 
     stateCopy.todos[index].completed = true;
+
     this.setState(stateCopy);
 
     this.localStorageSave();
-    console.log(window.localStorage.todosState);
   };
 
   // completeTodoHandler = e => {
@@ -71,25 +101,42 @@ class App extends Component {
   //   const index = this.state.todos.findIndex(f => f.id == id);
 
   //   this.state.todos[index].completed = true;
-  //   this.setState(this.state);
+  //   this.setState(this.state); // setState to cause a render
 
   //   this.localStorageSave();
   //   console.log(window.localStorage.todosState);
   // };
 
   notCompleteTodoHandler = e => {
+    //*  stateCopy.todos[index].completed = false;
     const id = e.target.id;
-    const index = this.state.todos.findIndex(f => f.id == id);
+    const todoIndex = this.state.todos.findIndex(f => f.id == id);
+    const completedIndex = this.state.completedTasks.findIndex(c => c.id == id);
     let stateCopy = this.state;
-    stateCopy.todos[index].completed = false;
+    completedIndex === -1
+      ? (stateCopy.todos[todoIndex].completed = false)
+      : (stateCopy.completedTasks[completedIndex].completed = false);
+
+    //? Why does this return a -1 as the index?
+
+    // stateCopy = {
+    //   todos: [
+    //     stateCopy.todos.filter(e => e.completed === false),
+    //     stateCopy.completedTasks.filter(e => e.completed === false)
+    //   ],
+    //   completedTasks: [
+    //     stateCopy.completedTasks.filter(e => e.completed === true),
+    //     stateCopy.todos.filter(e => e.completed === true)
+    //   ]
+    // };
+
     this.setState(stateCopy);
+
     this.localStorageSave();
-    console.log(window.localStorage.todosState);
   };
-//todo Make it not case sensitive on search
 
   onSearchHandler = evt => {
-    const input = evt.target.value;
+    const input = evt.target.value.toLowerCase();
     console.log("input", input, "state", this.state.todos);
     // let lostAndFound = [];
     // this.state.todos.forEach(el =>
@@ -99,23 +146,28 @@ class App extends Component {
       ? this.stateReset()
       : this.setState({
           todos: [...this.state.todos],
-          search: this.state.todos.filter(el => el.task.includes(input)),
-          searching: true
+          search: this.state.todos.filter(el =>
+            el.task.toLowerCase().includes(input)
+          ),
+          searching: true,
+          completedTasks: [...this.state.completedTasks]
         });
     // console.log(this.state);
   };
 
   onSearchBtnHandler = e => {
-    this.setState({
-      todos: [...this.state.todos],
-      search: []
-    });
+    const btn = e.target;
+    alert("CONGRATULATIONS YOU FOUND A HIDDEN BUTTON - 1sdc0d3r");
+    btn.className = "search-btn-found";
+    setTimeout(() => (btn.className = "search-btn"), 5000);
   };
+
   stateReset = () => {
     this.setState({
       todos: [...this.state.todos],
       search: [],
-      searching: false
+      searching: false,
+      completedTasks: [...this.state.completedTasks]
     });
   };
 
@@ -124,25 +176,30 @@ class App extends Component {
       <>
         <div className="app-container">
           <div className="form">
-            <h2>Todo List:</h2>
+            <h1>Todo List:</h1>
             <CreateTodoForm
               onSubmit={this.onSubmitHandler}
-              onClear={this.onClearHandler}
+              onUpdate={this.onUpdateHandler}
             />
             <SearchBar
-              btnSearch={this.onSearchBtnHandler}
               search={this.onSearchHandler}
+              btnSearch={this.onSearchBtnHandler}
             />
           </div>
         </div>
         <TodoList
           todoList={this.state.todos}
           lostAndFoundList={this.state.search}
-          remove={this.removeTodoHandler}
+          searching={this.state.searching}
           complete={this.completeTodoHandler}
           notComplete={this.notCompleteTodoHandler}
+          remove={this.removeTodoHandler}
           stateCheck={this.onSearchBtnHandler}
-          searching={this.state.searching}
+        />
+        <CompletedTodoList
+          completedList={this.state.completedTasks}
+          notComplete={this.notCompleteTodoHandler}
+          remove={this.removeTodoHandler}
         />
       </>
     );
