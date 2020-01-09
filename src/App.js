@@ -6,6 +6,7 @@ import CompletedTodoList from "./components/TodoComponents/CompletedTodos";
 
 class App extends Component {
   // this component is going to take care of state, and any change handlers you need to work with your state
+
   state = {
     todos: [],
     search: [],
