@@ -24,7 +24,6 @@ const TodoList = ({
               notComplete={notComplete}
             />
           ))}
-          {/* {console.log("todoList Render", todoList, "search", lostAndFoundList)} */}
         </div>
       </>
     );

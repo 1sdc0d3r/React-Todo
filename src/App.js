@@ -4,9 +4,6 @@ import CreateTodoForm from "./components/TodoComponents/TodoForm";
 import SearchBar from "./components/SearchBar";
 import CompletedTodoList from "./components/TodoComponents/CompletedTodos";
 
-//!              REMINDER:
-//todo REMINDER: BUY BLUE-LIGHT FILTER GLASSES
-
 class App extends Component {
   // this component is going to take care of state, and any change handlers you need to work with your state
   state = {
@@ -52,49 +49,74 @@ class App extends Component {
     this.localStorageSave();
   };
 
-  onUpdateHandler = e => {
-    // console.log(...this.state.todos.filter(e => e.completed === true));
-    const stateCopy = {
-      todos: [],
-      completedTasks: []
-    };
-    stateCopy.todos.push(
-      ...this.state.todos.filter(e => e.completed === false)
-    );
-    stateCopy.todos.push(
-      ...this.state.completedTasks.filter(e => e.completed === false)
-    );
-    stateCopy.completedTasks.push(
-      ...this.state.todos.filter(e => e.completed === true)
-    );
-    stateCopy.completedTasks.push(
-      ...this.state.completedTasks.filter(e => e.completed === true)
-    );
+  // onUpdateHandler = evt => {
+  //   // console.log(...this.state.todos.filter(e => e.completed === true));
 
-    this.setState(stateCopy);
-    this.localStorageSave();
-  };
+  //   this.setState({
+  //     todos: [
+  //       ...this.state.todos.filter(e => e.completed === false),
+  //       ...this.state.completedTasks.filter(e => e.completed === false)
+  //     ],
+  //     completedTasks: [
+  //       ...this.state.todos.filter(e => e.completed === true),
+  //       ...this.state.completedTasks.filter(e => e.completed === true)
+  //     ]
+  //   });
+  //   this.localStorageSave();
 
-  removeTodoHandler = evt => {
+  //   // const stateCopy = {
+  //   //   todos: [],
+  //   //   completedTasks: []
+  //   // };
+  //   // stateCopy.todos.push(
+  //   //   ...this.state.todos.filter(e => e.completed === false)
+  //   // );
+  //   // stateCopy.todos.push(
+  //   //   ...this.state.completedTasks.filter(e => e.completed === false)
+  //   // );
+  //   // stateCopy.completedTasks.push(
+  //   //   ...this.state.todos.filter(e => e.completed === true)
+  //   // );
+  //   // stateCopy.completedTasks.push(
+  //   //   ...this.state.completedTasks.filter(e => e.completed === true)
+  //   // );
+
+  //   // this.setState(stateCopy);
+  // };
+
+  //! completeTodoHandler in testing to combine update
+  completeTodoHandler = evt => {
     const id = evt.target.id;
+    const index = this.state.todos.findIndex(todo => todo.id == id);
+    this.state.todos[index].completed = !this.state.todos[index].completed;
+
     this.setState({
-      todos: [...this.state.todos.filter(e => e.id != id)],
-      completedTasks: [...this.state.completedTasks.filter(e => e.id != id)]
+      todos: [
+        ...this.state.todos.filter(e => e.completed === false),
+        ...this.state.completedTasks.filter(e => e.completed === false)
+      ],
+      completedTasks: [
+        ...this.state.todos.filter(e => e.completed === true),
+        ...this.state.completedTasks.filter(e => e.completed === true)
+      ]
     });
     this.localStorageSave();
   };
 
-  completeTodoHandler = e => {
-    const id = e.target.id;
-    const index = this.state.todos.findIndex(f => f.id == id);
-    let stateCopy = this.state;
+  // !Working completeTodoHandler
+  // completeTodoHandler = evt => {
+  //   const id = evt.target.id;
 
-    stateCopy.todos[index].completed = true;
-
-    this.setState(stateCopy);
-
-    this.localStorageSave();
-  };
+  //   this.setState(prevState => {
+  //     return {
+  //       todos: prevState.todos.map(todo => {
+  //         if (todo.id == id) return { ...todo, completed: true };
+  //         else return todo;
+  //       })
+  //     };
+  //   });
+  //   this.localStorageSave();
+  // };
 
   // completeTodoHandler = e => {
   //   const id = e.target.id;
@@ -107,31 +129,52 @@ class App extends Component {
   //   console.log(window.localStorage.todosState);
   // };
 
-  notCompleteTodoHandler = e => {
-    //*  stateCopy.todos[index].completed = false;
-    const id = e.target.id;
-    const todoIndex = this.state.todos.findIndex(f => f.id == id);
-    const completedIndex = this.state.completedTasks.findIndex(c => c.id == id);
-    let stateCopy = this.state;
-    completedIndex === -1
-      ? (stateCopy.todos[todoIndex].completed = false)
-      : (stateCopy.completedTasks[completedIndex].completed = false);
+  notCompleteTodoHandler = evt => {
+    // //*  stateCopy.todos[index].completed = false;
+    // ! This code works as well
+    // const id = e.target.id;
+    // const todoIndex = this.state.todos.findIndex(todo => todo.id == id);
+    // const completedIndex = this.state.completedTasks.findIndex(
+    //   todo => todo.id == id
+    // );
+    // let stateCopy = this.state;
 
-    //? Why does this return a -1 as the index?
+    // completedIndex === -1
+    //   ? (stateCopy.todos[todoIndex].completed = false)
+    //   : (stateCopy.completedTasks[completedIndex].completed = false);
 
-    // stateCopy = {
-    //   todos: [
-    //     stateCopy.todos.filter(e => e.completed === false),
-    //     stateCopy.completedTasks.filter(e => e.completed === false)
-    //   ],
-    //   completedTasks: [
-    //     stateCopy.completedTasks.filter(e => e.completed === true),
-    //     stateCopy.todos.filter(e => e.completed === true)
-    //   ]
-    // };
+    // //? Why does this return a -1 as the index?
 
-    this.setState(stateCopy);
+    // this.setState(stateCopy);
 
+    // this.localStorageSave();
+
+    // ! same code as completeTodoHandler
+    const id = evt.target.id;
+    const index = this.state.completedTasks.findIndex(todo => todo.id == id);
+    this.state.completedTasks[index].completed = !this.state.completedTasks[
+      index
+    ].completed;
+
+    this.setState({
+      todos: [
+        ...this.state.todos.filter(e => e.completed === false),
+        ...this.state.completedTasks.filter(e => e.completed === false)
+      ],
+      completedTasks: [
+        ...this.state.todos.filter(e => e.completed === true),
+        ...this.state.completedTasks.filter(e => e.completed === true)
+      ]
+    });
+    this.localStorageSave();
+  };
+
+  removeTodoHandler = evt => {
+    const id = evt.target.id;
+    this.setState({
+      todos: [...this.state.todos.filter(e => e.id != id)],
+      completedTasks: [...this.state.completedTasks.filter(e => e.id != id)]
+    });
     this.localStorageSave();
   };
 
@@ -177,10 +220,7 @@ class App extends Component {
         <div className="app-container">
           <div className="form">
             <h1>Todo List:</h1>
-            <CreateTodoForm
-              onSubmit={this.onSubmitHandler}
-              onUpdate={this.onUpdateHandler}
-            />
+            <CreateTodoForm onSubmit={this.onSubmitHandler} />
             <SearchBar
               search={this.onSearchHandler}
               btnSearch={this.onSearchBtnHandler}
@@ -200,6 +240,8 @@ class App extends Component {
           completedList={this.state.completedTasks}
           notComplete={this.notCompleteTodoHandler}
           remove={this.removeTodoHandler}
+          lostAndFoundList={this.state.search}
+          searching={this.state.searching}
         />
       </>
     );

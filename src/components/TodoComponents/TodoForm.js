@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { withFormik, Form, Field } from "formik";
 
 const todoForm = ({ values, resetForm }) => {
-  const { update } = values;
+  console.log("values", values);
   return (
     <div className="form">
       <Form>
@@ -15,24 +15,20 @@ const todoForm = ({ values, resetForm }) => {
         <button type="submit" onClick={() => {}} className="form-submit-btn">
           Add Todo
         </button>
-        <button type="button" onClick={update} className="form-update-btn">
-          Update
-        </button>
       </Form>
     </div>
   );
 };
 
 const FormikTodoForm = withFormik({
-  mapPropsToValues({ task, onSubmit, onUpdate }) {
+  mapPropsToValues({ onSubmit }) {
     return {
-      task: task || "",
-      submit: onSubmit,
-      update: onUpdate
+      submit: onSubmit
     };
   },
   handleSubmit({ taskInput, submit }) {
-    submit({ task: taskInput || "", id: Date.now(), completed: false });
+    if (taskInput)
+      submit({ task: taskInput, id: Date.now(), completed: false });
   }
 })(todoForm);
 

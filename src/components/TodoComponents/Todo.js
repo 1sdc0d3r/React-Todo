@@ -10,9 +10,6 @@ function Todo({ todo, remove, complete, notComplete }) {
         <button className="btn-complete" id={todo.id} onClick={complete}>
           Complete
         </button>
-        <button className="btn-not-complete" id={todo.id} onClick={notComplete}>
-          Not Complete
-        </button>
         <button className="btn-remove" id={todo.id} onClick={remove}>
           Remove
         </button>
