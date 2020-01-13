@@ -47,6 +47,8 @@ class App extends Component {
       todos: [...this.state.todos, task],
       completedTasks: [...this.state.completedTasks]
     });
+
+    document.getElementById("taskInput").value = "";
     this.localStorageSave();
   };
 
@@ -186,16 +188,22 @@ class App extends Component {
     // this.state.todos.forEach(el =>
     //   el.task.includes(input) ? lostAndFound.push(el) : null
     // );
-    !input
-      ? this.stateReset()
-      : this.setState({
-          todos: [...this.state.todos],
-          search: this.state.todos.filter(el =>
-            el.task.toLowerCase().includes(input)
-          ),
-          searching: true,
-          completedTasks: [...this.state.completedTasks]
-        });
+    if (!input) {
+      this.stateReset();
+    } else {
+      const todoSearch = this.state.todos.filter(el =>
+        el.task.toLowerCase().includes(input)
+      );
+      const completedSearch = this.state.completedTasks.filter(el =>
+        el.task.toLowerCase().includes(input)
+      );
+      this.setState({
+        todos: [...this.state.todos],
+        search: [...todoSearch, ...completedSearch],
+        searching: true,
+        completedTasks: [...this.state.completedTasks]
+      });
+    }
     // console.log(this.state);
   };
 

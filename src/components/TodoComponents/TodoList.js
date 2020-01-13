@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Todo from "./Todo";
 
 // todo Receives Todos array, map to create <Todo />
@@ -11,11 +11,11 @@ const TodoList = ({
   lostAndFoundList,
   searching
 }) => {
-  // if (!lostAndFoundList || lostAndFoundList.length === 0) {
-  if (searching === false) {
+  if (!searching) {
     return (
       <>
         <div className="todoList-comp">
+          <h2>Tasks:</h2>
           {todoList.map(e => (
             <Todo
               todo={e}
@@ -30,6 +30,18 @@ const TodoList = ({
   } else {
     return (
       <>
+        <h2
+          style={{
+            textAlign: "center",
+            width: "60%",
+            justifyContent: "center",
+            marginTop: "1rem",
+            fontStyle: "italic",
+            margin: "auto"
+          }}
+        >
+          Searching:
+        </h2>
         <div className="todoList-comp">
           {lostAndFoundList.map(e => (
             <Todo
@@ -39,13 +51,10 @@ const TodoList = ({
               notComplete={notComplete}
             />
           ))}
-          {/* {console.log("lostAndFound Render", lostAndFoundList, "todo", todoList)} */}
         </div>
       </>
     );
   }
-
-  //   return Object.keys(todoList).map(e => <Todo todo={todoList[e]} />);
 };
 
 export default TodoList;

@@ -20,6 +20,16 @@
   flex-wrap: wrap;
   margin: auto;
 }
+.todoList-comp h2 {
+  /* border: 1px solid red; */
+  width: 60%;
+  margin: auto;
+  justify-content: center;
+  text-align: center;
+  margin-top: 1rem;
+  font-style: italic;
+}
+
 .completed-todos-wrapper {
   display: flex;
   flex-wrap: wrap;
