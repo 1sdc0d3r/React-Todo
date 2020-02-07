@@ -182,7 +182,7 @@ class App extends Component {
   };
 
   onSearchHandler = evt => {
-    const input = evt.target.value.toLowerCase();
+    const input = evt.target.value.toLowerCase().trim();
     console.log("input", input, "state", this.state.todos);
     // let lostAndFound = [];
     // this.state.todos.forEach(el =>
