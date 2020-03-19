@@ -52,41 +52,6 @@ class App extends Component {
     this.localStorageSave();
   };
 
-  // onUpdateHandler = evt => {
-  //   // console.log(...this.state.todos.filter(e => e.completed === true));
-
-  //   this.setState({
-  //     todos: [
-  //       ...this.state.todos.filter(e => e.completed === false),
-  //       ...this.state.completedTasks.filter(e => e.completed === false)
-  //     ],
-  //     completedTasks: [
-  //       ...this.state.todos.filter(e => e.completed === true),
-  //       ...this.state.completedTasks.filter(e => e.completed === true)
-  //     ]
-  //   });
-  //   this.localStorageSave();
-
-  //   // const stateCopy = {
-  //   //   todos: [],
-  //   //   completedTasks: []
-  //   // };
-  //   // stateCopy.todos.push(
-  //   //   ...this.state.todos.filter(e => e.completed === false)
-  //   // );
-  //   // stateCopy.todos.push(
-  //   //   ...this.state.completedTasks.filter(e => e.completed === false)
-  //   // );
-  //   // stateCopy.completedTasks.push(
-  //   //   ...this.state.todos.filter(e => e.completed === true)
-  //   // );
-  //   // stateCopy.completedTasks.push(
-  //   //   ...this.state.completedTasks.filter(e => e.completed === true)
-  //   // );
-
-  //   // this.setState(stateCopy);
-  // };
-
   //! completeTodoHandler in testing to combine update
   completeTodoHandler = evt => {
     const id = evt.target.id;
@@ -183,11 +148,6 @@ class App extends Component {
 
   onSearchHandler = evt => {
     const input = evt.target.value.toLowerCase().trim();
-    console.log("input", input, "state", this.state.todos);
-    // let lostAndFound = [];
-    // this.state.todos.forEach(el =>
-    //   el.task.includes(input) ? lostAndFound.push(el) : null
-    // );
     if (!input) {
       this.stateReset();
     } else {
@@ -204,7 +164,6 @@ class App extends Component {
         completedTasks: [...this.state.completedTasks]
       });
     }
-    // console.log(this.state);
   };
 
   onSearchBtnHandler = e => {
@@ -258,45 +217,3 @@ class App extends Component {
 }
 
 export default App;
-
-// constructor() {
-//   super();
-//   this.state = [
-// {
-//   task: "Clean",
-//   id: Date.now(),
-//   completed: false
-// },
-// {
-//   task: "School",
-//   id: Date.now(),
-//   completed: false
-// }
-//   ];
-// }
-
-// onSubmitHandler = (state, data) => {
-//   console.log("before", state);
-//   if ((state = [])) {
-//     this.setState([{ task: data, id: Date.now(), completed: false }]);
-//   }
-//   //  else {
-//   // console.log("after", state);
-//   // }
-//   console.log("after", state);
-// };
-
-// onSubmitHandler = data => {
-//   console.log("before", this.state);
-//   let stateCopy = this.state;
-//   console.log("copy", stateCopy);
-//   stateCopy.push({
-//     task: data,
-//     id: Date.now(),
-//     completed: false
-//   });
-//   // this.state = stateCopy;
-//   // this.setState([stateCopy]);
-//   // console.log(...this.state);
-//   console.log("after", this.state);
-// };
