@@ -1,0 +1,137 @@
+/*! App */
+.app-container {
+  /* border: 1px solid green; */
+}
+.form {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.form h1 {
+  /* border: 1px solid red; */
+  font-style: italic;
+}
+.todoList-comp {
+  /* border: 3px solid purple; */
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+}
+.todoList-comp h2 {
+  /* border: 1px solid red; */
+  width: 60%;
+  margin: auto;
+  justify-content: center;
+  text-align: center;
+  margin-top: 1rem;
+  font-style: italic;
+}
+
+.completed-todos-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  /* border: 1px solid red; */
+}
+.completed-todos-wrapper h2 {
+  /* border: 1px solid red; */
+  width: 60%;
+  margin: auto;
+  justify-content: center;
+  text-align: center;
+  margin-top: 1rem;
+  font-style: italic;
+}
+.form-list {
+  /* border: 1px solid red; */
+}
+
+.no-tasks {
+  text-align: center;
+  margin-top: 0.5rem;
+}
+/*! Todo  */
+
+.todo {
+  display: flex;
+  flex-direction: column;
+  border: 3px ridge royalblue;
+  width: 40%;
+  /* width: auto; */
+  text-align: center;
+  margin-top: 1rem;
+  margin-left: 5%;
+  padding: 5px;
+}
+.btn-div {
+  display: flex;
+  margin-top: 0.5rem;
+  /* border: 1px solid saddlebrown; */
+}
+.btn-remove {
+  background: firebrick;
+  color: rgb(231, 231, 82);
+  height: 1rem;
+  margin: auto;
+}
+.btn-complete {
+  color: firebrick;
+  background: rgb(23, 179, 2);
+  height: 1rem;
+  margin: auto;
+}
+.btn-not-complete {
+  background: rgb(52, 122, 202);
+  color: rgb(146, 207, 211);
+  height: 1rem;
+  margin: auto;
+}
+.todo h3 {
+  margin: auto;
+}
+.todo-task {
+  margin: auto;
+}
+.completed {
+  margin: auto;
+  text-decoration: line-through;
+  color: red;
+}
+
+/*! TodoForm */
+.form-submit-btn {
+  background: lightgreen;
+  margin-left: 5px;
+}
+.form-update-btn {
+  background: pink;
+  margin-left: 5px;
+}
+.form-input-task {
+  background: rgb(213, 219, 226);
+  color: green;
+}
+
+/*! SearchBar */
+.search-input-label {
+}
+.search-input {
+  border: 1px solid purple;
+  margin-left: 5px;
+}
+.search-btn {
+  color: white;
+  background: white;
+  position: absolute;
+  margin-left: 2rem;
+  /* border: 1px solid white; */
+}
+.search-btn-found {
+  color: hotpink;
+  background: orange;
+  position: absolute;
+  margin-left: 2rem;
+}
