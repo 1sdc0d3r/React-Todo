@@ -38,4 +38,5 @@ function Todo({ todo, remove, complete, notComplete }) {
     </div>
   );
 }
+
 export default Todo;
